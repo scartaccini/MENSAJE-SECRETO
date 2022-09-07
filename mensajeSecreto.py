@@ -88,8 +88,7 @@ def mensajeSegmentar():
 		inicio=longitud
 		longitud += incremento
 		
-	#print(mensajeLista)
-
+	
 	for x in range(longitud):
 		codificar(x)
 
@@ -101,6 +100,24 @@ mensajeFinal=[]
 mensajeSegmentar()
 		
 print(mensajeFinal)	
+
+####
+u=0
+e=int(len(mensaje)/len(clave))
+decifrado={}
+for h in range(1,len(clave)+1):
+	decifrado[h]=mensajeFinal[u:e*h]
+	u=e*h
+	
+for c,v in numeroSecreto.items():
+	print(decifrado[numeroSecreto[c]])
+
+
+
+
+
+
+
 
 
 
