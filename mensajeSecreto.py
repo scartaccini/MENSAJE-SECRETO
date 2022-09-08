@@ -12,7 +12,7 @@ def ingresoSecreto():
 				print("La palabra secreta tiene que tener más de 3 letras y menos de 9")		
 		else:
 			print("La palabra secreta solo puede tener letras(A-Z)")
-
+### guarda la palabra secreta-letras sin repetirse- en variable tipo String claveIngresada, ejm FUEGO
 
 '''def ingresoSecreto():	
 	while (True):
@@ -24,7 +24,9 @@ def ingresoSecreto():
 			else:
 				print("La palabra secreta tiene que tener más de 3 letras y menos de 9")		
 		else:
-			print("La palabra secreta solo puede tener letras(A-Z)")'''
+			print("La palabra secreta solo puede tener letras(A-Z)")
+			### guarda la palabra secreta-letras- en variable claveIngresada
+			'''
 
 def ingresoMensaje():	
 	while (True):
@@ -41,6 +43,9 @@ def ingresoMensaje():
 				print("El mensaje solo puede tener letras(A-Z)")
 		else:
 			print("El mensaje tiene que tener más de 15 caractéres y menos de 61")				
+### guarda el texto a cifrar en variable mensaje de tipo String,sin espacios,solo letras
+### el tamaño del mensaje tiene que ser divisible entrre el tamaño de la palabra secreta,si no, se rellena con @
+### ejm, HOLAQUETALCOMOESTAS % FUEGO --->>> 19/5 --->>>   HOLAQUETALCOMOESTAS@
 
 def creaDiccionario():
 	
@@ -50,34 +55,38 @@ def creaDiccionario():
 	diccionario={}
 	diccionarioOrdenado={}
 	diccionarioClave={}
-
+	#recorre la palabra secreta,ejem F,U,E,G,O y la guarda en variable tipo diccionario, ejm diccionario {1:"F",2:"U",3:"E",4:"G",5:"O"}
 	for x in clave:
 		diccionario[contador]=x
 		contador=contador+1
-	###diccionario es la clave secreta guardada en un diccionario, ejem, {1:"F",2:"U",3:"E",4:"G",5:"O"}
-
+	###variable tipo lista,listaOrdenada guarda la palabra secreta ordenada alfabéticamente,ejem [E,F,G,O,U]
 	listaOrdenada=sorted(diccionario.values())	
-	###listaOrdenada es la clave secreta ordena alfabéticamente, ejem, [E,F,G,O,U]
-
+	#recorre palabra secreta ordenada alfabéticamente y la guarda en variable tipo diccionario, diccionarioOrdenado {1:"E",2:"F",3:"G",4:"O",5:"U"} 
 	for x in listaOrdenada:
 		diccionarioOrdenado[contadorDos]=x
 		contadorDos=contadorDos+1
-	###diccionarioOrdenado es la listaOrdenada, ejem, {1:"E",2:"F",3:"G",4:"O",5:"U"} 		
-	
+	#recorre palabra secreta, {1:"F",2:"U",3:"E",4:"G",5:"O"}	
 	for c,v in diccionario.items():
+	#recorre palabra secreta ordenada alfabéticamente, {1:"E",2:"F",3:"G",4:"O",5:"U"}  
 		for cc,vv in diccionarioOrdenado.items():
+	#si los valores de las letras son iguales, se guarda la clave de diccionarioOrdenado en la calve de diccionarioClave
+	#ejem {1: 2, 2: 5, 3: 1, 4: 3, 5: 4} 
 			if v==vv:
 				diccionarioClave[contadorTres]=cc
 				contadorTres=contadorTres+1
 				break
-	###diccionarioClave tiene los valores odrenados según el diccionario-diccionarioOrdenado, ejem, {1: 2, 2: 5, 3: 1, 4: 3, 5: 4} 		
+	###diccionarioClave guarda la palabra secreta odrenada según el diccionario-diccionarioOrdenado, ejem, {1: 2, 2: 5, 3: 1, 4: 3, 5: 4} 		
 	return diccionarioClave
 
 def codificar(x):
 	for filas in mensajeLista:
 		for c,v in numeroSecreto.items():
 			if v==x:
-				mensajeFinal.append((filas[c-1]))
+				#mensajeFinal.append((filas[c-1]))
+				mensajeFinal.append(filas[c-1])
+#recorre los segmentos y palabra secreta odrenada-según el diccionario-diccionarioOrdenado- y los machea
+# HOLAQ,UETAL,COMOE,STAS@ --->>> {1: 2, 2: 5, 3: 1, 4: 3, 5: 4} 
+#ejm, LTMA,HUCS,AAOS,QLE@,OEOT y lo almacena en la lista mensajeFinal
 
 def mensajeSegmentar():
 	inicio=0
@@ -87,10 +96,12 @@ def mensajeSegmentar():
 		mensajeLista.append(mensaje[inicio:longitud])
 		inicio=longitud
 		longitud += incremento
-		
-	
-	for x in range(longitud):
+#recorre el texto a cifrar en segmentos del tamaño de la palabra secreta
+#esos segmentos se guardan en una variable tipo lista, mensajeLista
+#ejm, HOLAQ,UETAL,COMOE,STAS@	
+	for x in range(incremento+1):
 		codificar(x)
+#llama al metodo codificar-pasa del 1 al tamaño de la palabra secreta- la cantidad de veces el tamaño de la palabra secreta
 
 clave=ingresoSecreto()
 numeroSecreto=creaDiccionario()
@@ -101,7 +112,11 @@ mensajeSegmentar()
 		
 print(mensajeFinal)	
 
-####
+#### decifrar mensaje
+clave=ingresoSecreto()
+numeroSecreto=creaDiccionario()
+
+
 u=0
 e=int(len(mensaje)/len(clave))
 decifrado={}
